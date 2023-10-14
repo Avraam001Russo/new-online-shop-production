@@ -4,40 +4,91 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2ec588b-37de-4838-b070-45b1498c2b90" name="Changes" comment="" />
+    <list default="true" id="b2ec588b-37de-4838-b070-45b1498c2b90" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/delivery-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/delivery-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/delivery-service/src/main/java/com/russozaripov/deliveryservice/deliveryService/ServiceDelivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/delivery-service/src/main/java/com/russozaripov/deliveryservice/deliveryService/ServiceDelivery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/com/russozaripov/inventoryservice/controller/InventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/com/russozaripov/inventoryservice/controller/InventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/com/russozaripov/inventoryservice/service/inventoryService/InventoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/com/russozaripov/inventoryservice/service/inventoryService/InventoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/OrderServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/OrderServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/RESTController/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/RESTController/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/basket/BasketService/ServiceBasket.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/basket/BasketService/ServiceBasket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/basket/DTO/BasketDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/basket/DTO/BasketDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/basket/model/Basket.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/basket/model/Basket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/basket/model/ProductInBasket.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/basket/model/ProductInBasket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/basket/repository/BasketRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/basket/repository/ProductsInBasketRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/config/OrderConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/config/OrderConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/exceptionHandler/GlobalException/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/exceptionHandler/GlobalException/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/order/orderConfig/ConfigOrder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/order/orderService/ServiceOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/russozaripov/orderservice/order/orderService/ServiceOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/test/java/com/russozaripov/orderservice/OrderServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/test/java/com/russozaripov/orderservice/OrderServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/test/java/com/russozaripov/orderservice/RESTController/OrderControllerTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/test/java/com/russozaripov/orderservice/basket/service/BasketServiceTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/test/java/com/russozaripov/orderservice/order/service/OrderServiceTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/test/java/com/russozaripov/orderservice/order/service/messageBroker/BrokerMessageTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/russozaripov/productservice/DTO/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/russozaripov/productservice/DTO/ProductDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/russozaripov/productservice/config/ProductConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/russozaripov/productservice/config/ProductConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/russozaripov/productservice/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/russozaripov/productservice/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/russozaripov/productservice/service/productService/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/russozaripov/productservice/service/productService/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/russozaripov/productservice/service/s3service/S3Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/russozaripov/productservice/service/s3service/S3Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/test/java/com/russozaripov/productservice/service/ProductServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/test/java/com/russozaripov/productservice/service/ProductServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/test/java/com/russozaripov/productservice/service/S3serviceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/test/java/com/russozaripov/productservice/service/S3serviceTests.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2WTe5yvYDNuwI3L0sixG7izYQmm" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "C:/Users/Huawei/IdeaProjects/new-online-shop-production/api-gateway/src/main/java/com/russozaripov/apigateway",
-    "nodejs_package_manager_path": "npm",
-    "spring.configuration.checksum": "f6fcf23545586d20145943f8f6bd1a09"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Huawei/IdeaProjects/new-online-shop-production/api-gateway/src/main/java/com/russozaripov/apigateway&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;fea7e0fb992331e0346f2e3cf96b6884&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Huawei\IdeaProjects\new-online-shop-production\api-gateway\src\main\java\com\russozaripov\apigateway" />
@@ -49,6 +100,7 @@
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
+      <command value="mvn clean" />
       <command value="mvn clean verify" />
     </option>
   </component>
@@ -59,78 +111,82 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.OrderServiceApplication">
-    <configuration name="InventoryControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="inventory-service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.russozaripov.inventoryservice.RESTcontroller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.russozaripov.inventoryservice.RESTcontroller" />
-      <option name="MAIN_CLASS_NAME" value="com.russozaripov.inventoryservice.RESTcontroller.InventoryControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="InventoryServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="inventory-service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.russozaripov.inventoryservice.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.russozaripov.inventoryservice.service" />
-      <option name="MAIN_CLASS_NAME" value="com.russozaripov.inventoryservice.service.InventoryServiceTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="KafkaProducerServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="inventory-service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.russozaripov.inventoryservice.service.messageBroker.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.russozaripov.inventoryservice.service.messageBroker" />
-      <option name="MAIN_CLASS_NAME" value="com.russozaripov.inventoryservice.service.messageBroker.KafkaProducerServiceTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OrderControllerTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ServiceOrderTests.givenOrderId_whenDeleteOrder_thenReturnNothing">
+    <configuration name="ServiceBasketTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="order-service" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.russozaripov.orderservice.RESTController.*" />
+          <option name="PATTERN" value="com.russozaripov.orderservice.basket.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.russozaripov.orderService.RESTController" />
-      <option name="MAIN_CLASS_NAME" value="com.russozaripov.orderservice.RESTController.OrderControllerTests" />
+      <option name="PACKAGE_NAME" value="com.russozaripov.orderservice.basket" />
+      <option name="MAIN_CLASS_NAME" value="com.russozaripov.orderservice.basket.ServiceBasketTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ServiceBasketTests.givenBasketList_whenGetAllBaskets_thenReturnBasketList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="order-service" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.russozaripov.orderservice.order.service.*" />
+          <option name="PATTERN" value="com.russozaripov.orderservice.basket.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.russozaripov.orderService.order.service" />
-      <option name="MAIN_CLASS_NAME" value="com.russozaripov.orderservice.order.service.OrderServiceTests" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.russozaripov.orderservice.basket" />
+      <option name="MAIN_CLASS_NAME" value="com.russozaripov.orderservice.basket.ServiceBasketTests" />
+      <option name="METHOD_NAME" value="givenBasketList_whenGetAllBaskets_thenReturnBasketList" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServiceBasketTests.givenBasketObject_whenGetSingleBasket_thenReturnBasketObject" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="order-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.russozaripov.orderservice.basket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.russozaripov.orderservice.basket" />
+      <option name="MAIN_CLASS_NAME" value="com.russozaripov.orderservice.basket.ServiceBasketTests" />
+      <option name="METHOD_NAME" value="givenBasketObject_whenGetSingleBasket_thenReturnBasketObject" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServiceOrderTests.givenOrderDTO_whenCreateOrder_thenReturn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="order-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.russozaripov.orderservice.order.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.russozaripov.orderservice.order" />
+      <option name="MAIN_CLASS_NAME" value="com.russozaripov.orderservice.order.ServiceOrderTests" />
+      <option name="METHOD_NAME" value="givenOrderDTO_whenCreateOrder_thenReturn" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServiceOrderTests.givenOrderId_whenDeleteOrder_thenReturnNothing" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="order-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.russozaripov.orderservice.order.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.russozaripov.orderservice.order" />
+      <option name="MAIN_CLASS_NAME" value="com.russozaripov.orderservice.order.ServiceOrderTests" />
+      <option name="METHOD_NAME" value="givenOrderId_whenDeleteOrder_thenReturnNothing" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -200,11 +256,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.InventoryServiceTests" />
-        <item itemvalue="JUnit.KafkaProducerServiceTests" />
-        <item itemvalue="JUnit.InventoryControllerTest" />
-        <item itemvalue="JUnit.OrderControllerTests" />
-        <item itemvalue="JUnit.OrderServiceTests" />
+        <item itemvalue="JUnit.ServiceOrderTests.givenOrderId_whenDeleteOrder_thenReturnNothing" />
+        <item itemvalue="JUnit.ServiceOrderTests.givenOrderDTO_whenCreateOrder_thenReturn" />
+        <item itemvalue="JUnit.ServiceBasketTests" />
+        <item itemvalue="JUnit.ServiceBasketTests.givenBasketList_whenGetAllBaskets_thenReturnBasketList" />
+        <item itemvalue="JUnit.ServiceBasketTests.givenBasketObject_whenGetSingleBasket_thenReturnBasketObject" />
       </list>
     </recent_temporary>
   </component>
@@ -219,6 +275,21 @@
       <workItem from="1696760823608" duration="2226000" />
       <workItem from="1696764404249" duration="147000" />
       <workItem from="1696764560916" duration="6088000" />
+      <workItem from="1696771758075" duration="4194000" />
+      <workItem from="1696784908596" duration="2619000" />
+      <workItem from="1696792403183" duration="2310000" />
+      <workItem from="1696851035292" duration="4461000" />
+      <workItem from="1696860909430" duration="1448000" />
+      <workItem from="1696924473371" duration="1451000" />
+      <workItem from="1697109229592" duration="4950000" />
+      <workItem from="1697119611136" duration="3340000" />
+      <workItem from="1697192063372" duration="836000" />
+      <workItem from="1697193214493" duration="5441000" />
+      <workItem from="1697209305658" duration="5504000" />
+      <workItem from="1697286660158" duration="799000" />
+      <workItem from="1697290312361" duration="786000" />
+      <workItem from="1697306823859" duration="2354000" />
+      <workItem from="1697312464278" duration="3362000" />
     </task>
     <servers />
   </component>
@@ -239,5 +310,16 @@
     <option featureType="dependencySupport" implementationName="java:jakarta.ws.rs:jakarta.ws.rs-api" />
     <option featureType="dependencySupport" implementationName="java:org.springframework:spring-messaging" />
     <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

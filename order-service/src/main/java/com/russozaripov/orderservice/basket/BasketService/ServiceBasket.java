@@ -6,9 +6,15 @@ import com.russozaripov.orderservice.basket.DTO.BasketItemDTO;
 import com.russozaripov.orderservice.basket.DTO.requestResponse.RequestResponseDTO;
 import com.russozaripov.orderservice.basket.model.Basket;
 import com.russozaripov.orderservice.basket.model.ProductInBasket;
-import com.russozaripov.orderservice.basket.repository.BasketRepository;
+import com.russozaripov.orderservice.exceptionHandler.BasketException;
+import com.russozaripov.orderservice.repository.BasketRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -18,91 +24,83 @@ import java.util.*;
 @Slf4j
 public class ServiceBasket {
 
-    private final BasketRepository basketRepository;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceBasket.class);
     private final ServiceJWT serviceJWT;
-    public RequestResponseDTO<String> createBasket(BasketDTO basketDTO, String authorization){
+    private final BasketRepository basketRepository;
+    public Basket createBasket(BasketDTO basketDTO, String authorization){
         String token = authorization.substring(7);
         String username = serviceJWT.getUserName(token);
-        Basket basket;
-            Optional<Basket> basketOptional = basketRepository.findBasketByUsername(username);
+        Basket basket = Basket.builder()
+                .username(username)
+                .build();
+        for (BasketItemDTO itemDTO : basketDTO.getBasketItemDTO()){
+            ProductInBasket productInBasket = ProductInBasket.builder()
+                    .skuCode(itemDTO.getSkuCode())
+                    .price(itemDTO.getPrice())
+                    .quantity(itemDTO.getQuantity())
+                    .build();
+            basket.addProductToBasket(productInBasket);
+        }
+             LOGGER.info("Basket saved successfully: %s".formatted(basket.getUsername()));
+             return basketRepository.save(basket);
 
-            if (basketOptional.isPresent()){
-            basket = basketOptional.get();
+    }
+
+    @CacheEvict(cacheNames = "basket", key = "#username")
+    public void deleteBasket(String username) {
+        Optional<Basket> basketByUsername = basketRepository.findBasketByUsername(username);
+        if (basketByUsername.isPresent()){
+            basketRepository.deleteById(basketByUsername.get().getId());
+            LOGGER.info("Basket deleted successfully!");
         }
         else {
-         basket = Basket.builder().username(username).build();
+            throw new BasketException("Basket not found.");
         }
-         for (BasketItemDTO basketItemDTO : basketDTO.getBasketItemDTO()){
-            ProductInBasket productInBasket = ProductInBasket.builder()
-                     .price(basketItemDTO.getPrice())
-                     .quantity(basketItemDTO.getQuantity())
-                     .skuCode(basketItemDTO.getSkuCode())
-                     .build();
-              basket.addProductToBasket(productInBasket);
-         }
-             basketRepository.save(basket);
-            log.info("Basket %s save".formatted(username));
-            return new RequestResponseDTO<>("Success", "Basket %s save".formatted(username));
     }
 
-    public RequestResponseDTO<String> deleteProduct(String skuCode, String authorization) {
-        String token = authorization.substring(7);
-        String username = serviceJWT.getUserName(token);
-        Optional<Basket> basketOptional = basketRepository.findBasketByUsername(username);
-        if (basketOptional.isPresent()) {
-            Basket basket = basketOptional.get();
-            List<ProductInBasket> productInBasketList = (List<ProductInBasket>) basket.getProductsInBaskets();
-            for (ProductInBasket prod : productInBasketList) {
-                if (Objects.equals(skuCode, prod.getSkuCode())) {
-                    int quantity = prod.getQuantity() - 1;
-                    prod.setQuantity(quantity);
+    @CachePut(cacheNames = "basket", key = "#username")
+    public Basket updateBasket(BasketDTO basketDTO, String username) {
+        Optional<Basket> basketByUsername = basketRepository.findBasketByUsername(username);
+        if (basketByUsername.isPresent()){
+            Basket basket = basketByUsername.get();
+            for (BasketItemDTO itemDTO : basketDTO.getBasketItemDTO()){
+                ProductInBasket productInBasket = ProductInBasket.builder()
+                        .skuCode(itemDTO.getSkuCode())
+                        .price(itemDTO.getPrice())
+                        .quantity(itemDTO.getQuantity())
+                        .build();
+                boolean found = false;
+                for (ProductInBasket prod : basket.getProductsInBaskets()){
+                    if (itemDTO.getSkuCode().equals(prod.getSkuCode())){
+                        int quantity = prod.getQuantity() + itemDTO.getQuantity();
+                        prod.setQuantity(quantity);
+                        found = true;
+                    }
+                }
+                if (!found){
+                basket.addProductToBasket(productInBasket);
                 }
             }
-            basketRepository.save(basket);
-            String success = "Product: %s successfully delete from basket.".formatted(skuCode);
-            log.info(success);
-            return new RequestResponseDTO<>(success, "Success.");
-        } else {
-            return new RequestResponseDTO<>("BASKET_NOT_FOUND_EXCEPTION", "Basket with username: %s not found.");
+            LOGGER.info("Basket updated successfully! -> %s".formatted(basket.getUsername()));
+            return basketRepository.save(basket);
+        }
+        else {
+            throw new BasketException("Basket not found.");
         }
     }
-
-    public RequestResponseDTO<String> updateBasket(BasketDTO basketDTO, String authorization) {
-        String token = authorization.substring(7);
-        String username = serviceJWT.getUserName(token);
-        Optional<Basket> basketOptional = basketRepository.findBasketByUsername(username);
-        if (basketOptional.isPresent()){
-        Basket basket = basketOptional.get();
-        List<ProductInBasket> copyOfBasket = new ArrayList<>();
-        for (BasketItemDTO basketItemDTO : basketDTO.getBasketItemDTO()){
-           ProductInBasket productInBasket = ProductInBasket.builder()
-                    .price(basketItemDTO.getPrice())
-                    .quantity(basketItemDTO.getQuantity())
-                    .skuCode(basketItemDTO.getSkuCode())
-                    .build();
-
-            boolean foundNewProduct = false;
-           for (ProductInBasket prod : basket.getProductsInBaskets()){
-               if (prod.getSkuCode().equals(productInBasket.getSkuCode())){
-                   int QUANTITY = prod.getQuantity() + productInBasket.getQuantity();
-                   prod.setQuantity(QUANTITY);
-                   log.info("Product: %s update %d".formatted(prod.getSkuCode(), QUANTITY));
-                   foundNewProduct = true;
-                   break;
-               }
-           }
-           if(!foundNewProduct){
-               log.info("Product: %s added in basket".formatted(basketItemDTO.getSkuCode()));
-               copyOfBasket.add(productInBasket);
-           }
+    public List<Basket> getAllBaskets() {
+        return basketRepository.findAll();
+    }
+    @Cacheable(cacheNames = "basket", key = "#username")
+    public Basket getSingleBasket(String username){
+        Optional<Basket> basketByUsername = basketRepository.findBasketByUsername(username);
+        if (basketByUsername.isPresent()){
+            Basket basket = basketByUsername.get();
+            LOGGER.info("%s -> get basket by username methode has come".formatted(basket.getUsername()));
+            return basket;
         }
-        for (ProductInBasket product : copyOfBasket){
-            basket.addProductToBasket(product);
-        }
-        basketRepository.save(basket);
-        return new RequestResponseDTO<>("Basket: %s successfully update.".formatted(username), "Success.");
-        } else {
-            return new RequestResponseDTO<>("BASKET_NOT_FOUND_EXCEPTION", "Basket with username: %s not found");
+        else {
+            throw new BasketException("Basket not found.");
         }
     }
 

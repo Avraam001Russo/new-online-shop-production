@@ -1,7 +1,10 @@
 package com.russozaripov.productservice.controller;
 
 import com.russozaripov.productservice.DTO.ProductDTO;
+import com.russozaripov.productservice.exceptionHandler.ProductServicEexception.AddPhotoException;
+import com.russozaripov.productservice.exceptionHandler.ProductServicEexception.DisconnectInventoryException;
 import com.russozaripov.productservice.service.productService.ProductService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,14 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/product")
 @Slf4j
-public class AdminController {
+public class ProductController {
 
     @Value("${eureka.instance.instance-id}")
     private String PRODUCT_SERVICE_INSTANCE_ID;
@@ -26,23 +27,31 @@ public class AdminController {
     private ProductService productService;
     @PostMapping("/addProduct")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> Add_New_Product(@RequestParam("file")MultipartFile file) throws IOException {
+    @CircuitBreaker(name = "productservice", fallbackMethod = "addNewProductFallBackMethode")
+    public ResponseEntity<?> Add_New_Product(@RequestParam("file")MultipartFile file) throws Exception {
                 String result = productService.add_New_Product(file);
                 return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
+    public ResponseEntity<?> addNewProductFallBackMethode(MultipartFile file, AddPhotoException exception){
+        return ResponseEntity.ok("exception -> " + exception.getMessage());
+    }
     @PutMapping("/addProduct/metaData")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> add_MetaData_Product(@RequestBody ProductDTO productDTO){
+    @CircuitBreaker(name = "productservice", fallbackMethod = "fallBackMethodeAddMetadataProduct")
+    public ResponseEntity<?> add_MetaData_Product(@RequestBody ProductDTO productDTO){
          String result =  productService.add_MetaData_Product(productDTO);
          return new ResponseEntity<>(result, HttpStatus.OK);
         // HttpStatus.OK идет в заголовок и ResponseEntity будет представлен только в виде строки Result
+    }
+    public ResponseEntity<?> fallBackMethodeAddMetadataProduct(ProductDTO productDTO, DisconnectInventoryException exception){
+        return ResponseEntity.ok(exception.getMessage());
     }
 
     @GetMapping("/getAllProducts")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<ProductDTO>> get_All_Products() throws Exception {
-        CompletableFuture<List<ProductDTO>> productDTOList = productService.get_Products_Is_In_Stock();
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(productDTOList.get());
+        List<ProductDTO> productDTOS = productService.get_Products_Is_In_Stock().get();
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(productDTOS);
     }
     @GetMapping("/getSingleProduct/{productID}")
     @ResponseStatus(HttpStatus.OK)
@@ -54,7 +63,7 @@ public class AdminController {
     }
     @GetMapping("/getProducts/sortWithSpec")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> get_Sorted_Products_Wirh_Specification_JPA(
+    public ResponseEntity<?> get_Sorted_Products_With_Specification_JPA(
             @RequestParam(value = "brand", required = false) String brand,
             @RequestParam(value = "type", required = false) String type,
             @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
@@ -74,4 +83,8 @@ public class AdminController {
         String successDelete = productService.deleteProductById(id);
         return ResponseEntity.ok(successDelete);
     }
+
+
+
+
 }

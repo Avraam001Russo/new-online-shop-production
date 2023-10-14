@@ -30,4 +30,6 @@ public class InventoryController {
         String result = inventoryService.supply_Product(supply_product_dto);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
     }
+
+
 }

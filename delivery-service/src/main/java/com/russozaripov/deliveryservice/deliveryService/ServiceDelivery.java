@@ -7,7 +7,9 @@ import com.russozaripov.deliveryservice.model.OrderItem;
 import com.russozaripov.deliveryservice.repository.DeliveryModelRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ import java.util.List;
 @Slf4j
 public class ServiceDelivery {
     private final DeliveryModelRepository deliveryModelRepository;
+    private final SimpMessagingTemplate simpMessagingTemplate;
+
     @KafkaListener(topics = "newOrder", groupId = "delivery-group")
     public void receivedMessageWithNewOrder(RequestOrderDTO requestOrderDTO){
         DeliveryModel deliveryModel = DeliveryModel.builder()
@@ -40,6 +44,11 @@ public class ServiceDelivery {
         }
         deliveryModel.setListOfOrderItem(listOfrderItems);
         deliveryModelRepository.save(deliveryModel);
+        sendMessage(deliveryModel);
         log.info("Delivery model saved: %s".formatted(deliveryModel.toString()));
+    }
+
+    public void sendMessage(DeliveryModel deliveryModel){
+        simpMessagingTemplate.convertAndSend("/delivery/chatroom",deliveryModel);
     }
 }

@@ -52,6 +52,7 @@ public class InventoryService {
                 inventoryModel.setQuantity(inventoryBalance);
 
                 if(inventoryBalance == 0){
+                    // если товар закончился то убираем его с витрины
                     Supply_product_DTO product_dto = Supply_product_DTO.builder()
                                     .quantity(inventoryBalance)
                                             .skuCode(inventoryModel.getSkuCode())

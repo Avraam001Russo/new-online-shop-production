@@ -1,5 +1,6 @@
 package com.russozaripov.orderservice.exceptionHandler.GlobalException;
 
+import com.russozaripov.orderservice.exceptionHandler.BasketException;
 import com.russozaripov.orderservice.exceptionHandler.JWTException.JwtTokenIncorrectData;
 import com.russozaripov.orderservice.exceptionHandler.JWTException.NoValidJWTException;
 import com.russozaripov.orderservice.exceptionHandler.OrderException.IncorrectDataOrderException;
@@ -17,6 +18,12 @@ public class GlobalExceptionHandler {
         JwtTokenIncorrectData incorrectData = new JwtTokenIncorrectData();
         incorrectData.setInfo(noValidJWTException.getMessage());
         return new ResponseEntity<>(incorrectData, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler
+    public ResponseEntity<IncorrectDataOrderException> incorrectDataOrderException(BasketException exception){
+        IncorrectDataOrderException incorrectDataOrderException = new IncorrectDataOrderException();
+        incorrectDataOrderException.setInfo(exception.getMessage());
+        return new ResponseEntity<>(incorrectDataOrderException, HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler
     public ResponseEntity<IncorrectDataOrderException> incorrectDataOrderException(OrderException orderException){

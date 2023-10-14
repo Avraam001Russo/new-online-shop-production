@@ -1,10 +1,10 @@
 package com.russozaripov.orderservice.order.orderService;
 
 import com.russozaripov.orderservice.JWTParser.ServiceJWT;
+import com.russozaripov.orderservice.basket.BasketService.ServiceBasket;
 import com.russozaripov.orderservice.basket.DTO.requestResponse.RequestResponseDTO;
 import com.russozaripov.orderservice.basket.model.Basket;
 import com.russozaripov.orderservice.basket.model.ProductInBasket;
-import com.russozaripov.orderservice.basket.repository.BasketRepository;
 import com.russozaripov.orderservice.exceptionHandler.OrderException.OrderException;
 import com.russozaripov.orderservice.order.DTO.InfoAboutOrderDTO;
 import com.russozaripov.orderservice.order.DTO.OrderInfoDTO;
@@ -28,9 +28,9 @@ import java.util.Optional;
 @Service
 public class ServiceOrder {
     private final OrderRepository orderRepository;
-    private final BasketRepository basketRepository;
     private final BrokerMessage brokerMessage;
     private final ServiceJWT serviceJWT;
+    private final ServiceBasket serviceBasket;
 
     public RequestResponseDTO<RequestOrderDTO> createNewOrder(InfoAboutOrderDTO infoAboutOrderDTO, String authorization){
 
@@ -45,7 +45,7 @@ public class ServiceOrder {
         OrderInfo orderInfo = OrderInfo.builder().deliveryAddress(DELIVERY_ADDRESS).email(EMAIL).phoneNumber(PHONE_NUMBER).build();
         Order order = Order.builder().username(username).orderInfo(orderInfo).build();
 
-        Basket basket = basketRepository.findBasketByUsername(username).get();
+        Basket basket = serviceBasket.getSingleBasket(username);
         List<ProductInBasket> listOfProducts = (List<ProductInBasket>) basket.getProductsInBaskets();
 
         List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
@@ -60,9 +60,9 @@ public class ServiceOrder {
         }
 
                 Order savedOrder = orderRepository.save(order);
-                log.info("Order saved.{}", savedOrder.getUsername());
-                basketRepository.deleteById(basket.getId());
-                log.info("Basket %s successfully delete after create order.".formatted(savedOrder.getUsername()));
+                log.info("Order saved.{}", username);
+                serviceBasket.deleteBasket(username);
+                log.info("Basket %s successfully delete after create order.".formatted(username));
         OrderInfoDTO orderInfoDTO = OrderInfoDTO.builder()
                 .deliveryAddress(DELIVERY_ADDRESS)
                 .email(EMAIL)

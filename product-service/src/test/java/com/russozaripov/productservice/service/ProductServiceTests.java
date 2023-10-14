@@ -91,7 +91,7 @@ public class ProductServiceTests {
 
     @DisplayName("Junit test for add new photo operation.")
     @Test
-    public void givenProductObjectAndProductPhotoUrl_whenAddNewProduct_thenReturnPhotoURL() throws IOException {
+    public void givenProductObjectAndProductPhotoUrl_whenAddNewProduct_thenReturnPhotoURL() throws Exception {
         byte[] mockFile = new byte[4096];
         MockMultipartFile multipartFile = new MockMultipartFile("test-name", "test-fileName.jpg", "image/jpeg", mockFile);
         String urlPhoto = "www.test-url.com";

@@ -7,6 +7,8 @@ import com.russozaripov.productservice.entity.Details;
 import com.russozaripov.productservice.entity.Product;
 import com.russozaripov.productservice.entity.Type;
 
+import com.russozaripov.productservice.exceptionHandler.ProductServicEexception.AddPhotoException;
+import com.russozaripov.productservice.exceptionHandler.ProductServicEexception.DisconnectInventoryException;
 import com.russozaripov.productservice.exceptionHandler.noSuchProduct.NoSuchProductException;
 import com.russozaripov.productservice.repository.brandRepository.BrandRepository;
 import com.russozaripov.productservice.repository.productRepository.ProductRepository;
@@ -14,7 +16,6 @@ import com.russozaripov.productservice.repository.typeRepository.TypeRepository;
 import com.russozaripov.productservice.service.productService.filterService.ServiceFilter;
 import com.russozaripov.productservice.service.updateProductInStock.AllProductsIsInStockService;
 import com.russozaripov.productservice.service.s3service.S3Service;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CachePut;
@@ -26,7 +27,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
@@ -45,17 +45,21 @@ public class ProductService {
     private final FromProductToProductDTO fromProductToProductDTO;
     private final ServiceFilter serviceFilter;
 
-    public String add_New_Product( MultipartFile file) throws IOException {
+    public String add_New_Product( MultipartFile file) throws Exception {
+        try {
         String photoUrl = s3Service.add_New_File(file);
         Product product = new Product();
         product.setPhotoUrl(photoUrl);
         productRepository.save(product);
         log.info("Product photo save");
         return String.valueOf(product.getId());
+        }catch (Exception exception){
+            throw new AddPhotoException("Error while upload photo operation");
+        }
     }
 
     public String add_MetaData_Product(ProductDTO productDTO) {
-                Optional<Type> optionalType = typeRepository.findTypeByName(productDTO.getProductType());
+        Optional<Type> optionalType = typeRepository.findTypeByName(productDTO.getProductType());
         Type type;
         if (optionalType.isPresent()){
             type = optionalType.get();
@@ -81,7 +85,6 @@ public class ProductService {
         Product product = null;
         if (productOptional.isPresent()){
             product = productOptional.get();
-        }
         product.setTitle(productDTO.getTitle());
         product.setSkuCode(productDTO.getSkuCode());
         product.setType(type);
@@ -90,10 +93,15 @@ public class ProductService {
 
         productRepository.save(product);
         log.info("Product with name: %s successfully update.".formatted(product.getSkuCode()));
+        } else {
+            throw new NoSuchProductException("Product with id: %d not found".formatted(productDTO.getProductId()));
+        }
 
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        try {
 
         HttpEntity<String> httpEntity = new HttpEntity<>(product.getSkuCode(), httpHeaders);
 
@@ -105,6 +113,9 @@ public class ProductService {
 
         log.info(resultFromInventory);
         return resultFromInventory;
+        }catch (Exception exception){
+            throw new DisconnectInventoryException("Inventory service unavailable.");
+        }
     }
 
     public ProductDTO get_Single_Product(int id) {
@@ -115,18 +126,16 @@ public class ProductService {
             throw new NoSuchProductException("Product with id: %s not found.".formatted(id));
         }
     }
-    @PostConstruct
-    @Cacheable("allProductsIsInStock")
     @Async
+    @Cacheable(cacheNames = "allProducts")
     public CompletableFuture<List<ProductDTO>> get_Products_Is_In_Stock() throws Exception {
        Callable<List<ProductDTO>> listCallable = allProductsIsInStockService.GetAllProductsIsInStockService();
         List<ProductDTO> productDTOList = listCallable.call();
         log.info(productDTOList.toString());
         return CompletableFuture.completedFuture(productDTOList);
     }
-
     @Async
-    @CachePut("allProductsIsInStock")
+    @CachePut(cacheNames = "allProducts")
     public CompletableFuture<List<ProductDTO>> update_Cache_With_AllProducts() throws Exception {
         Callable<List<ProductDTO>> listCallable = allProductsIsInStockService.GetAllProductsIsInStockService();
         List<ProductDTO> productDTOList = listCallable.call();

@@ -7,8 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "basket")
@@ -16,14 +19,14 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Basket {
+public class Basket implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     @Column(name = "username")
     private String username;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "basket")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "basket", fetch = FetchType.EAGER)
     @JsonManagedReference
     private Collection<ProductInBasket> productsInBaskets;
 
